@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
@@ -27,7 +28,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1280.0" prefHeight="768.0" prefWidth="1280.0">
+      <Pane maxHeight="768.0" maxWidth="1280.0" prefHeight="768.0" prefWidth="1280.0">
          <children>
             <Label layoutX="873.0" layoutY="21.0" prefHeight="21.0" prefWidth="87.0" text="USERNAME:" />
             <TextField layoutX="960.0" layoutY="16.0" prefHeight="31.0" prefWidth="256.0" />
@@ -48,27 +49,42 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                     </content>
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
                                   </TitledPane>
                                   <TitledPane animated="false" text="Network">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                     </content>
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
                                   </TitledPane>
                                 </panes>
                               </Accordion>
                            </children>
                         </AnchorPane>
                   </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
                 </TitledPane>
                 <TitledPane alignment="TOP_LEFT" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" text="ADMIN">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
                 </TitledPane>
                 <TitledPane alignment="TOP_LEFT" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" text="IDENTITY">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
                 </TitledPane>
               </panes>
             </Accordion>
