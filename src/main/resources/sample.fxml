@@ -27,7 +27,8 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity
+" minHeight="768.0" minWidth="1280.0" prefHeight="768.0" prefWidth="1280.0">
          <children>
             <Label layoutX="873.0" layoutY="21.0" prefHeight="21.0" prefWidth="87.0" text="USERNAME:" />
             <TextField layoutX="960.0" layoutY="16.0" prefHeight="31.0" prefWidth="256.0" />
@@ -36,20 +37,20 @@
             <Button layoutX="960.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="100.0" text="LOGIN" />
             <Button layoutX="1116.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="100.0" text="LOGOUT" />
             <Separator layoutX="7.0" layoutY="133.0" prefHeight="6.0" prefWidth="1273.0" />
-            <Accordion layoutX="7.0" layoutY="135.0" prefHeight="633.0" prefWidth="262.0">
+            <Accordion layoutX="7.0" layoutY="135.0" prefWidth="262.0">
               <panes>
-                <TitledPane expanded="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="PROJECT">
+                <TitledPane alignment="TOP_LEFT" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="292.0" text="PROJECT">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="539.0" prefWidth="295.0">
+                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="297.0">
                            <children>
-                              <Accordion layoutX="23.0" prefHeight="93.0" prefWidth="272.0">
+                              <Accordion layoutX="14.0" prefHeight="93.0" prefWidth="276.0">
                                 <panes>
-                                  <TitledPane animated="false" text="Compute" underline="true">
+                                  <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" text="Compute" textAlignment="CENTER">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                     </content>
                                   </TitledPane>
-                                  <TitledPane animated="false" text="Network" underline="true">
+                                  <TitledPane animated="false" text="Network">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                     </content>
@@ -60,12 +61,12 @@
                         </AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane expanded="false" text="ADMIN">
+                <TitledPane alignment="TOP_LEFT" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" text="ADMIN">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </TitledPane>
-                <TitledPane expanded="false" text="IDENTITY">
+                <TitledPane alignment="TOP_LEFT" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" text="IDENTITY">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
