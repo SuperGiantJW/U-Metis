@@ -7,6 +7,13 @@
     <groupId>org.umetis</groupId>
     <artifactId>U-Metis</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.pacesys</groupId>
+            <artifactId>openstack4j</artifactId>
+            <version>3.0.2</version>
+            <classifier>withdeps</classifier>
+        </dependency>
+    </dependencies>
 
-    
 </project>
