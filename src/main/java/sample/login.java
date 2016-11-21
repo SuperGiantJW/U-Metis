@@ -16,7 +16,7 @@ import java.util.List;
 public class login {
     OSClient.OSClientV2 os = OSFactory.builderV2()
                             .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
-                            .credentials("admin", "sample")     //second parameter might be "test" instead
+                            .credentials("admin", "cis347")     //second parameter might be "test" instead
                             .tenantName("admin")
                             .authenticate();
 
