@@ -1,4 +1,4 @@
-package sample;
+package umetis;
 
 import org.openstack4j.api.OSClient;
 import org.openstack4j.model.compute.Flavor;
@@ -14,11 +14,7 @@ import java.util.List;
  * Created by Joe on 11/17/2016.
  */
 public class login {
-    OSClient.OSClientV2 os = OSFactory.builderV2()
-                            .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
-                            .credentials("admin", "cis347")     //second parameter might be "test" instead
-                            .tenantName("admin")
-                            .authenticate();
+
 
     //test queries from openstack4j to see if we're on the right track
     // Find all running Servers
