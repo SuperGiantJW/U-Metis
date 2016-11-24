@@ -20,7 +20,7 @@ public class Controller {
                 .tenantName(id)
                 .authenticate();
 
-        System.out.println(os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2));
+//        System.out.println(os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2));
     }
 
 
