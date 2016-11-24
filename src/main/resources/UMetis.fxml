@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1285.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umetis.Controller">
+<GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1285.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -49,15 +47,16 @@
               <panes>
                 <TitledPane alignment="TOP_LEFT" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="292.0" text="PROJECT">
                   <content>
-                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="297.0">
+                    <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="297.0">
                            <children>
                               <Accordion layoutX="14.0" prefHeight="93.0" prefWidth="276.0">
                                 <panes>
                                   <TitledPane animated="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="256.0" text="Compute" textAlignment="CENTER">
                                     <content>
-                                      <AnchorPane prefHeight="30.0" prefWidth="274.0">
+                                      <AnchorPane maxHeight="-Infinity" prefHeight="81.0" prefWidth="274.0">
                                              <children>
-                                                <Button layoutX="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="256.0" text="Button" />
+                                                <Button layoutX="70.0" mnemonicParsing="false" snapToPixel="false" text="Button" AnchorPane.leftAnchor="-25.0" AnchorPane.rightAnchor="-25.0" />
+                                                <Button layoutY="36.0" mnemonicParsing="false" text="Button" AnchorPane.leftAnchor="-25.0" AnchorPane.rightAnchor="-25.0" />
                                              </children></AnchorPane>
                                     </content>
                                        <font>
@@ -100,24 +99,12 @@
               </panes>
             </Accordion>
             <Separator layoutX="301.0" layoutY="139.0" orientation="VERTICAL" prefHeight="633.0" prefWidth="4.0" />
-            <Pane layoutX="307.0" layoutY="136.0" prefHeight="613.0" prefWidth="949.0">
-               <children>
-                  <TabPane layoutX="-1.0" prefHeight="624.0" prefWidth="973.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Untitled Tab 1">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                      <Tab text="Untitled Tab 2">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                    </tabs>
-                  </TabPane>
-               </children>
-            </Pane>
+            <Pane layoutX="307.0" layoutY="136.0" prefHeight="613.0" prefWidth="949.0" />
+            <Button fx:id="create_user" layoutX="993.0" layoutY="95.0" mnemonicParsing="false" onAction="#create_user" prefHeight="38.0" prefWidth="100.0" text="CREATE">
+               <font>
+                  <Font name="TrajanPro-Bold" size="15.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
