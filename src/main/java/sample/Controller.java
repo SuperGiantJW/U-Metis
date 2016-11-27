@@ -26,7 +26,7 @@ public class Controller {
                 .tenantName(id)
                 .authenticate();
 
-        _os = os;
+        osSet(os);
 
 //        System.out.println(os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2));
     }
@@ -50,7 +50,7 @@ public class Controller {
     public void btnCreateNetwork_Click(ActionEvent actionEvent) {
         // Create a Network with hard-coded values
         _os.networking().network().create(Builders.network().name("MyNewNet").tenantId("admin").build());
-        
+
     }
 
     public OSClient.OSClientV2 osGet(){
