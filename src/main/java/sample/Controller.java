@@ -28,7 +28,7 @@ public class Controller {
 
         _os = os;
 
-//        System.out.println(os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2));
+//        List<? extends Compute> compute = os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2));
     }
 
 
@@ -59,5 +59,20 @@ public class Controller {
 
     public void osSet(OSClient.OSClientV2 os){
         this._os = os;
+    }
+
+    public void instance_click(ActionEvent actionEvent) {
+    }
+
+    public void image_click(ActionEvent actionEvent) {
+    }
+
+    public void topology_click(ActionEvent actionEvent) {
+    }
+
+    public void network_click(ActionEvent actionEvent) {
+    }
+
+    public void router_click(ActionEvent actionEvent) {
     }
 }
