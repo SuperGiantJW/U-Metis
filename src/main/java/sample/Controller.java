@@ -2,41 +2,40 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.model.compute.Image;
-import org.openstack4j.model.identity.v2.Tenant;
-import org.openstack4j.model.identity.v2.User;
-import org.openstack4j.model.network.Network;
-import org.openstack4j.model.network.Port;
-import org.openstack4j.model.network.Subnet;
 import org.openstack4j.openstack.OSFactory;
 import javafx.scene.control.TextField;
+import org.openstack4j.openstack.internal.OSAuthenticator;
+import org.openstack4j.openstack.internal.OSClientSession;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Controller {
     @FXML TextField username_text;
     @FXML TextField password_box;
+    @FXML Pane network_pane;
     private OSClient.OSClientV2 _os;
+
 
     public void login_click(ActionEvent actionEvent) {
         String id = username_text.getText();
         String pwd = password_box.getText();
      //   System.out.println(id + "\r\n" + pwd);
-        OSClient.OSClientV2 os = OSFactory.builderV2()
+        _os = OSFactory.builderV2()
                 .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
                 .credentials(id, pwd)
                 .tenantName(id)
                 .authenticate();
 
-        osSet(os);
 
-        //   List<? extends > compute = os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2));
+           String flavors = _os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get();
     }
 
-    public void create_user(ActionEvent actionEvent) {
+    public void create_user(MouseEvent actionEvent) {
 
         //Use scanner once user input implemented
         //Scanner scan = new Scanner(System.in);
@@ -47,17 +46,17 @@ public class Controller {
 
     }
 
-    public void logout_click(ActionEvent actionEvent) {
-
+    public void logout_click(MouseEvent actionEvent) {
+ //       _os.getAccess().getToken().
     }
 
-    public void btnCreateNetwork_Click(ActionEvent actionEvent) {
-        // Create a Network with hard-coded values
-        _os.networking().network().create(Builders.network().name("MyNewNet").tenantId("admin").build());
+//    public void btnCreateNetwork_Click(ActionEvent actionEvent) {
+//        // Create a Network with hard-coded values
+//        _os.networking().network().create(Builders.network().name("MyNewNet").tenantId("admin").build());
+//
+//    }
 
-    }
-
-    public OSClient.OSClientV2 osGet(){
+    public OSClient.OSClientV2 get_os(){
         return _os;
     }
 
@@ -65,10 +64,11 @@ public class Controller {
         this._os = os;
     }
 
-    public void instance_click(ActionEvent actionEvent) {
+    public void instance_click(MouseEvent actionEvent) {
+        network_pane.setVisible(true);
     }
 
-    public void image_click(ActionEvent actionEvent) {
+    public void image_click(MouseEvent actionEvent) {
         // List all Images (detailed @see #list(boolean detailed) for brief)
         List<? extends Image> images = _os.compute().images().list();
 
@@ -76,29 +76,41 @@ public class Controller {
         Image img = _os.compute().images().get("imageId");
     }
 
-    public void topology_click(ActionEvent actionEvent) {
+    public void topology_click(MouseEvent actionEvent)
+    {
+
+     //   topology_pane.setVisible(true);
     }
 
-    public void network_click(ActionEvent actionEvent) {
-        // List the networks which the current tenant has access to
-        List<? extends Network> networks =_os.networking().network().list();
+    public void network_click(MouseEvent actionEvent) {
 
-        // Get a network by ID
-        Network network = _os.networking().network().get("networkId");
+//        // List the networks which the current tenant has access to
+//        List<? extends Network> networks =_os.networking().network().list();
+//
+//        // Get a network by ID
+//        Network network = _os.networking().network().get("networkId");
+//
+//        // List all subnets which the current authorized tenant has access to
+//        List<? extends Subnet> subnets = _os.networking().subnet().list();
+//
+//        // Get a Subnet by ID
+//        Subnet subnet = _os.networking().subnet().get("subnetId");
+//
+//        // List all Ports which the current authorized tenant has access to
+//        List<? extends Port> ports =_os.networking().port().list();
+//
+//        // Get a Port by ID
+//        Port port =_os.networking().port().get("portId");
 
-        // List all subnets which the current authorized tenant has access to
-        List<? extends Subnet> subnets = _os.networking().subnet().list();
 
-        // Get a Subnet by ID
-        Subnet subnet = _os.networking().subnet().get("subnetId");
+        network_pane.setVisible(true);
 
-        // List all Ports which the current authorized tenant has access to
-        List<? extends Port> ports =_os.networking().port().list();
 
-        // Get a Port by ID
-        Port port =_os.networking().port().get("portId");
     }
 
-    public void router_click(ActionEvent actionEvent) {
+    public void router_click(ActionEvent actionEvent)
+    {
+
+     //   router_pane.setVisible(true);
     }
 }
