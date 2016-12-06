@@ -1,7 +1,13 @@
 package sample;
 
 import com.google.common.collect.Table;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -13,9 +19,13 @@ import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.model.compute.Image;
 import org.openstack4j.model.network.Network;
+import org.openstack4j.model.network.Port;
+import org.openstack4j.model.network.Subnet;
 import org.openstack4j.openstack.OSFactory;
 import org.openstack4j.openstack.internal.OSAuthenticator;
 import org.openstack4j.openstack.internal.OSClientSession;
+import org.openstack4j.openstack.networking.domain.NeutronNetwork;
+import org.openstack4j.openstack.networking.domain.NeutronPort;
 
 
 public class Controller {
@@ -30,6 +40,8 @@ public class Controller {
     @FXML Pane router_pane;
     private OSClient.OSClientV2 _os;
 
+    private Random random = new Random();
+
 
     public void login_click(ActionEvent actionEvent) {
         String id = username_text.getText();
@@ -43,7 +55,7 @@ public class Controller {
 
 
 //        String flavors = _os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get();
-        System.out.println(_os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get());
+//        System.out.println(_os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get());
     }
 
     public void create_user(MouseEvent actionEvent) {
@@ -108,26 +120,26 @@ public class Controller {
     }
 
     public void network_click(MouseEvent actionEvent) {
-        network_table = ????;
-//        network_name = List<? extends Network> _os.networking().network().list();
 
 //        // List the networks which the current tenant has access to
         List<? extends Network> networks = _os.networking().network().list();
-//
-//        // Get a network by ID
-//        Network network_name = _os.networking().network().get("networkId");
-//
+//        List<? extends Network> networks = mockNetworks();
+
 //        // List all subnets which the current authorized tenant has access to
-//        List<? extends Subnet> subnets = _os.networking().subnet().list();
-//
-//        // Get a Subnet by ID
-//        Subnet subnet = _os.networking().subnet().get("subnetId");
-//
+        List<? extends Subnet> subnets = _os.networking().subnet().list();
+
 //        // List all Ports which the current authorized tenant has access to
-//        List<? extends Port> ports =_os.networking().port().list();
-//
-//        // Get a Port by ID
-//        Port port =_os.networking().port().get("portId");
+        List<? extends Port> ports =_os.networking().port().list();
+
+        ObservableListWrapper<Network> obsNetwork = new ObservableListWrapper<>(networks.stream()
+                .filter(network -> network.getClass().isAssignableFrom(NeutronNetwork.class))
+                .collect(Collectors.toList()));
+
+        network_table.itemsProperty().setValue(obsNetwork);
+
+//        ObservableListWrapper<Network> obsSubnet = new ObservableListWrapper<>(networks.stream()
+//                .filter(network -> network.getClass().isAssignableFrom(NeutronNetwork.class))
+//                .collect(Collectors.toList()));
 
         instance_pane.setVisible(false);
         image_pane.setVisible(false);
@@ -144,5 +156,18 @@ public class Controller {
         topology_pane.setVisible(false);
         network_pane.setVisible(false);
         router_pane.setVisible(true);
+    }
+
+    public List<Network> mockNetworks()
+    {
+        List<Network> networks = new ArrayList<>();
+        Network network = new NeutronNetwork();
+        network.setId("asd2131");
+
+        network.setName("network" + random.nextInt());
+
+        networks.add(network);
+
+        return networks;
     }
 }

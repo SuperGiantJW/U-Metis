@@ -22,20 +22,26 @@ public class networks {
         return netName.get();
     }
     public void setNetName(String netName) {
-        netName.set(netName);
+
+        this.netName.set(netName);
     }
 
     public String getNetSubnet() {
+
         return netSubnet.get();
     }
     public void setNetSubnet(String netSubnet) {
-        netSubnet.set(netSubnet);
+
+        this.netSubnet.set(netSubnet);
     }
 
     public String getNetPort() {
+
         return netPort.get();
     }
-    public void setNetPort(String netPort) {
-        netPort.set(netPort);
+    public void setNetPort(String netPort){
+
+        this.netPort.set(netPort);
+
     }
 }

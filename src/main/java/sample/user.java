@@ -16,12 +16,11 @@ public class user {
     TextField password_box;
     String id = username_text.getText();
     String pwd = password_box.getText();
-    private OSClient.OSClientV2 _os;
-
-    //   System.out.println(id + "\r\n" + pwd);
-    _os = OSFactory.builderV2()
+    private OSClient.OSClientV2 _os = OSFactory.builderV2()
             .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
                 .credentials(id, pwd)
                 .tenantName(id)
                 .authenticate();
+
+    //   System.out.println(id + "\r\n" + pwd);
 }
