@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1285.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="1285.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -69,12 +69,12 @@
                                                 <Insets />
                                              </opaqueInsets>
                                              <children>
-                                                <Button fx:id="instance" layoutX="7.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#instance_click" prefHeight="40.0" prefWidth="240.0" text="Instances">
+                                                <Button fx:id="instance" layoutX="7.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#instance_click" prefHeight="40.0" prefWidth="240.0" text="Instances" textAlignment="CENTER">
                                                    <font>
                                                       <Font name="Questa-Regular" size="18.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="image" layoutX="7.0" layoutY="39.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#image_click" prefHeight="40.0" prefWidth="240.0" text="Images">
+                                                <Button fx:id="image" layoutX="7.0" layoutY="39.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#image_click" prefHeight="40.0" prefWidth="240.0" text="Images" textAlignment="CENTER">
                                                    <font>
                                                       <Font name="Questa-Regular" size="18.0" />
                                                    </font>
@@ -98,12 +98,12 @@
                                                       <Font name="Questa-Regular" size="18.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="network" layoutX="-5.0" layoutY="39.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#network_click" prefHeight="40.0" prefWidth="240.0" text="Networks" textAlignment="RIGHT">
+                                                <Button fx:id="network" layoutX="-5.0" layoutY="39.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#network_click" prefHeight="40.0" prefWidth="240.0" text="Networks" textAlignment="CENTER">
                                                    <font>
                                                       <Font name="Questa-Regular" size="18.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="router" layoutX="-6.0" layoutY="78.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#router_click" prefHeight="40.0" prefWidth="240.0" text="Routers" textAlignment="RIGHT">
+                                                <Button fx:id="router" layoutX="-6.0" layoutY="78.0" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#router_click" prefHeight="40.0" prefWidth="240.0" text="Routers" textAlignment="CENTER">
                                                    <font>
                                                       <Font name="Questa-Regular" size="18.0" />
                                                    </font>
@@ -138,7 +138,7 @@
                         <Font name="TrajanPro-Bold" size="24.0" />
                      </font>
                      <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="220.0" prefWidth="246.0" />
                      </content>
                      <padding>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
@@ -158,18 +158,83 @@
               </panes>
             </Accordion>
             <Separator layoutX="258.0" layoutY="139.0" orientation="VERTICAL" prefHeight="633.0" prefWidth="0.0" />
-            <Pane fx:id="working_pane" layoutX="262.0" layoutY="146.0" prefHeight="603.0" prefWidth="1040.0">
+            <Pane fx:id="working_pane" layoutX="262.0" layoutY="146.0" prefHeight="602.0" prefWidth="1023.0">
                <children>
-                  <Pane fx:id="network_pane" layoutY="9.0" visible="false">
+                  <Pane fx:id="instance_pane" prefHeight="602.0" prefWidth="1024.0" visible="false">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="940.0">
+                        <TableView fx:id="instance_table" focusTraversable="false" layoutX="52.0" layoutY="38.0" prefWidth="920.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="NETWORK" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="179.0" text="Instance Name" />
+                            <TableColumn minWidth="9.0" prefWidth="171.0" text="IP Address" />
+                              <TableColumn prefWidth="303.0" text="SIze" />
+                              <TableColumn minWidth="0.0" prefWidth="96.0" text="Status" />
                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
                         </TableView>
                      </children>
                   </Pane>
+                  <Pane fx:id="image_pane" prefHeight="602.0" prefWidth="1024.0" visible="false">
+                     <children>
+                        <TableView fx:id="image_table" layoutX="52.0" layoutY="37.0" prefWidth="920.0">
+                          <columns>
+                            <TableColumn prefWidth="282.0" text="Image Name" />
+                            <TableColumn prefWidth="168.0" text="Type" />
+                              <TableColumn prefWidth="157.0" text="Status" />
+                              <TableColumn prefWidth="123.0" text="Column X" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="topology_pane" prefHeight="602.0" prefWidth="1024.0" visible="false">
+                     <children>
+                        <TableView fx:id="topology_table" layoutX="52.0" layoutY="38.0" prefWidth="920.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Name" />
+                            <TableColumn prefWidth="75.0" text="Status" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                              <TableColumn prefWidth="75.0" text="Column X" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="network_pane" prefHeight="602.0" prefWidth="1024.0">
+                     <children>
+                        <TableView fx:id="network_table" layoutX="52.0" layoutY="38.0" prefWidth="920.0">
+                          <columns>
+                            <TableColumn id="network_type" fx:id="network_name" prefWidth="125.0" text="Network Name" />
+                            <TableColumn fx:id="subnets" prefWidth="233.0" text="Subnets" />
+                              <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
+                              <TableColumn fx:id="admin_state" prefWidth="75.0" text="State" />
+                              <TableColumn prefWidth="75.0" text="Options" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="router_pane" prefHeight="602.0" prefWidth="1024.0" visible="false">
+                     <children>
+                        <TableView fx:id="router_table" layoutX="50.0" layoutY="38.0" prefWidth="920.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="602.0" prefWidth="1023.0" />
                </children></Pane>
          </children>
       </Pane>
