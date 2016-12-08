@@ -18,6 +18,7 @@ import javax.accessibility.AccessibleComponent;
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.model.compute.Image;
+import org.openstack4j.model.compute.ext.AvailabilityZone;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.Port;
 import org.openstack4j.model.network.Subnet;
@@ -89,6 +90,12 @@ public class Controller {
 
     public void instance_click(MouseEvent actionEvent) {
 
+//        ObservableListWrapper<AvailabilityZone.NovaService> obsNetwork = new ObservableListWrapper<>(networks.stream()
+//                .filter(compute -> compute.getClass().isAssignableFrom(NeutronNetwork.class))
+//                .collect(Collectors.toList()));
+//
+//        Image img = _os.compute().images().get("imageId");
+        
         image_pane.setVisible(false);
         topology_pane.setVisible(false);
         network_pane.setVisible(false);
