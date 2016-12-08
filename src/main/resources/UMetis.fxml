@@ -223,17 +223,33 @@
                                                 <PropertyValueFactory property="status" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="net_state" prefWidth="75.0" text="Admin State">
+                                        <TableColumn fx:id="net_state" prefWidth="75.0" text="State">
                                             <!--id="net_state"-->
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="adminStateUp" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn prefWidth="75.0" text="Options" />
+                                        <TableColumn prefWidth="75.0" text="Options"/>
                                     </columns>
                                     <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                     </columnResizePolicy>
+                                </TableView>
+                                <TableView fx:id="subnet_table" layoutX="52.0" layoutY="38.0" prefWidth="920.0">
+                                    <columns>
+                                        <TableColumn fx:id="subnet_name" prefWidth="125.0" text="Subnet Name">
+                                            <!--id="network_type"-->
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="name"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="125.0" text="CIDR">
+                                            <!--id="network_type"-->
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="cidr"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
                                 </TableView>
                             </children>
                         </Pane>

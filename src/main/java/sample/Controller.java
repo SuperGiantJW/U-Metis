@@ -1,7 +1,6 @@
 package sample;
 
 import com.google.common.collect.Table;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +26,7 @@ import org.openstack4j.openstack.internal.OSAuthenticator;
 import org.openstack4j.openstack.internal.OSClientSession;
 import org.openstack4j.openstack.networking.domain.NeutronNetwork;
 import org.openstack4j.openstack.networking.domain.NeutronPort;
+import org.openstack4j.openstack.networking.domain.NeutronSubnet;
 
 
 public class Controller {
@@ -34,6 +34,7 @@ public class Controller {
     @FXML TextField username_text;
     @FXML TextField password_box;
     @FXML TableView network_table;
+    @FXML TableView subnet_table;
     @FXML Pane instance_pane;
     @FXML Pane image_pane;
     @FXML Pane topology_pane;
@@ -42,6 +43,21 @@ public class Controller {
     private OSClient.OSClientV2 _os;
 
     private Random random = new Random();
+
+    public Controller()
+    {
+
+    }
+
+    public void initialize()
+    {
+        network_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                subnet_table.getSelectionModel().clearSelection();
+                subnet_table.itemsProperty().setValue(new ObservableListWrapper<>(((NeutronNetwork)newSelection).getSubnets()));
+            }
+        });
+    }
 
 
     public void login_click(ActionEvent actionEvent) {
@@ -153,6 +169,7 @@ public class Controller {
         router_pane.setVisible(false);
         topology_pane.setVisible(false);
         network_pane.setVisible(true);
+
 
     }
 
