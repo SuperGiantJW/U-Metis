@@ -6,24 +6,22 @@ import javafx.beans.property.SimpleStringProperty;
  * Created by Joe on 11/28/2016.
  */
 public class networks {
-    private SimpleStringProperty netName;
+    private SimpleStringProperty netNetwork;
     private SimpleStringProperty netSubnet;
     private SimpleStringProperty netPort;
-    private SimpleStringProperty netStatus;
 
     private networks(String netName, String netSubnet, String netPort, String netStatus) {
-        this.netName = new SimpleStringProperty(netName);
+        this.netNetwork = new SimpleStringProperty(netName);
         this.netSubnet = new SimpleStringProperty(netSubnet);
         this.netPort = new SimpleStringProperty(netPort);
-        this.netStatus = new SimpleStringProperty(netStatus);
     }
 
     public String getNetName() {
-        return netName.get();
+        return netNetwork.get();
     }
     public void setNetName(String netName) {
 
-        this.netName.set(netName);
+        this.netNetwork.set(netName);
     }
 
     public String getNetSubnet() {
