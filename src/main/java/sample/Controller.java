@@ -1,6 +1,9 @@
 package sample;
 
 import com.google.common.collect.Table;
+
+import java.awt.*;
+import java.awt.TextArea;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,10 +12,12 @@ import java.util.stream.Collectors;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.TextField;
+
 import javax.accessibility.AccessibleComponent;
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
@@ -34,6 +39,7 @@ public class Controller {
 
     @FXML TextField username_text;
     @FXML TextField password_box;
+    @FXML TextArea failed_text;
     @FXML TextField company_text;
     @FXML TextField desc_text;
     @FXML TableView network_table;
@@ -69,22 +75,33 @@ public class Controller {
     public void login_click(ActionEvent actionEvent) {
         String id = username_text.getText();
         String pwd = password_box.getText();
-     //   System.out.println(id + "\r\n" + pwd);
-        if (_os != null) {
+        //
+//        if (_os != null /*and equal to existing user*/) {
+//            _os = OSFactory.builderV2()
+//                    .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
+//                    .credentials(id, pwd)
+//                    .tenantName(id)
+//                    .authenticate();
+//
+//            login_pane.setVisible(false);
+//            main_pane.setVisible(true);
+//        }
+        // Test data
+        if (_os != null /*and equal to existing user*/) {
             _os = OSFactory.builderV2()
                     .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
-                    .credentials(id, pwd)
-                    .tenantName(id)
+                    .credentials("admin", "cis347")
+                    .tenantName("admin")
                     .authenticate();
 
             login_pane.setVisible(false);
             main_pane.setVisible(true);
         }
+        // If the authentication fails it throws this error
         else {
-            System.out.println("invalid user name or password");
+            Label label = new Label();
+            label.setText("*Invalid username or password*");
         }
-
-
 
 //        String flavors = _os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get();
 //        System.out.println(_os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get());
