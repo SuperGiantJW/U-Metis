@@ -3,7 +3,7 @@ package sample;
 import com.google.common.collect.Table;
 
 import java.awt.*;
-import java.awt.TextArea;
+import javafx.scene.control.TextArea;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,12 +21,14 @@ import javafx.scene.layout.Pane;
 import javax.accessibility.AccessibleComponent;
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
+import org.openstack4j.api.exceptions.AuthenticationException;
 import org.openstack4j.model.compute.Image;
 import org.openstack4j.model.compute.ext.AvailabilityZone;
 import org.openstack4j.model.identity.v2.Tenant;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.Port;
 import org.openstack4j.model.network.Subnet;
+import org.openstack4j.model.network.options.PortListOptions;
 import org.openstack4j.openstack.OSFactory;
 import org.openstack4j.openstack.internal.OSAuthenticator;
 import org.openstack4j.openstack.internal.OSClientSession;
@@ -39,7 +41,7 @@ public class Controller {
 
     @FXML TextField username_text;
     @FXML TextField password_box;
-    @FXML TextArea failed_text;
+    @FXML Label failed_login;
     @FXML TextField company_text;
     @FXML TextField desc_text;
     @FXML TableView network_table;
@@ -61,12 +63,20 @@ public class Controller {
 
     }
 
+    // initialize happens after the constructor of Controller and after all JavaFX controls are instantiated.
+    // JavaFX scans the Controller class and automatically finds this at **runtime**.
     public void initialize()
     {
+        // This sets up the event handler for the network_table's currently selected row being changed.
         network_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 subnet_table.getSelectionModel().clearSelection();
+
+                // Set subnet_table's items to be the subnets of the newly selected NeutronNetwork.
                 subnet_table.itemsProperty().setValue(new ObservableListWrapper<>(((NeutronNetwork)newSelection).getSubnets()));
+
+                // Set port_table's items to ports assigned to the network by the network ID.
+                port_table.itemsProperty().setValue(new ObservableListWrapper<>(_os.networking().port().list(PortListOptions.create().networkId(((NeutronNetwork)newSelection).getId()))));
             }
         });
     }
@@ -87,21 +97,36 @@ public class Controller {
 //            main_pane.setVisible(true);
 //        }
         // Test data
-        if (_os != null /*and equal to existing user*/) {
-            _os = OSFactory.builderV2()
+        if (!id.equals("") && !pwd.equals("")) {
+            try {
+                _os = OSFactory.builderV2()
                     .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
-                    .credentials("admin", "cis347")
-                    .tenantName("admin")
+                    .credentials(id, pwd)
+                    .tenantName(id)
                     .authenticate();
 
-            login_pane.setVisible(false);
-            main_pane.setVisible(true);
+//                _os = OSFactory.builderV2()
+//                        .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
+//                        .credentials("admin", "cis347")
+//                        .tenantName("admin")
+//                        .authenticate();
+            } catch (AuthenticationException ex) {
+                failed_login.setText("*Invalid username or password*");
+                return;
+
+            }
+            failed_login.clear();
         }
-        // If the authentication fails it throws this error
         else {
-            Label label = new Label();
-            label.setText("*Invalid username or password*");
+            failed_login.setText("*Username and password required*");
+            return;
         }
+
+        login_pane.setVisible(false);
+        main_pane.setVisible(true);
+        username_text.clear();
+        password_box.clear();
+
 
 //        String flavors = _os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get();
 //        System.out.println(_os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get());
@@ -127,6 +152,10 @@ public class Controller {
 
     public void logout_click(MouseEvent actionEvent) {
 //        _os.;
+
+
+        main_pane.setVisible(false);
+        login_pane.setVisible(true);
     }
 
 //    public void btnCreateNetwork_Click(ActionEvent actionEvent) {
