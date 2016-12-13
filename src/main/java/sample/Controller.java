@@ -367,4 +367,31 @@ public class Controller {
     }
 
 
+    public void create_vm(ActionEvent actionEvent) {
+       // Create a Server Model Object
+       ServerCreate sc = Builders.server().name("UMetisTestServer").flavor("flavorId").image("imageId").build();
+
+        // Boot the Server
+       Server server = _os.compute().servers().boot(sc);
+
+//       image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(false);
+//              vm_pane.setVisible(true);
+    }
+
+    public void delete_vm(ActionEvent actionEvent) {
+       _os.compute().servers().delete("serverId");
+
+//       image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(false);
+//        vm_pane.setVisible(true);
+    }
 }
