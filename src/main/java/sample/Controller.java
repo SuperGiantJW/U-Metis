@@ -118,7 +118,7 @@ public class Controller {
                 return;
 
             }
-            failed_login.clear();
+
         }
         else {
             failed_login.setText("*Username and password required*");
