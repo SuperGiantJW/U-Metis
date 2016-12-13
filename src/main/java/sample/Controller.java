@@ -22,7 +22,10 @@ import javax.accessibility.AccessibleComponent;
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.api.exceptions.AuthenticationException;
+import org.openstack4j.model.compute.Flavor;
 import org.openstack4j.model.compute.Image;
+import org.openstack4j.model.compute.Server;
+import org.openstack4j.model.compute.ServerCreate;
 import org.openstack4j.model.compute.ext.AvailabilityZone;
 import org.openstack4j.model.identity.v2.Tenant;
 import org.openstack4j.model.network.Network;
@@ -172,6 +175,88 @@ public class Controller {
 //        this._os = os;
 //    }
 
+//    public void flavorCreate_click(MouseEvent actionEvent) {
+//        Flavor flavor = Builders.flavor()
+//                .name("Large Resources Template")
+//                .ram(4096)
+//                .vcpus(6)
+//                .disk(120)
+//                .rxtxFactor(1.2f)
+//                .build();
+//
+//        flavor = _os.compute().flavors().create(flavor);
+
+//        image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(true);
+//    }
+
+//    // Find all Flavors
+//    public void flavors_click (MouseEvent actionEvent) {
+//        List<Flavor> flavors = (List<Flavor>) _os.compute().flavors().list();
+
+//        image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(true);
+//    }
+
+//public void flavorDelete_click(MouseEvent actionEvent) {
+//    _os.compute().flavors().delete("flavorId");
+//
+//        image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(true);
+//}
+
+//   public void vmCreate_click(MouseEvent actionEvent){
+//       // Create a Server Model Object
+//       ServerCreate sc = Builders.server().name("UMetisTestServer").flavor("flavorId").image("imageId").build();
+//
+////    Boot the Server
+//       Server server = _os.compute().servers().boot(sc);
+
+//       image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(false);
+    //      vm_pane.setVisible(true);
+//   }
+
+//    public void vm_click(MouseEvent actionEvent) {
+//        // List all Servers
+//        List<? extends Server> servers = _os.compute().servers().list();
+
+//       image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(false);
+        //      vm_pane.setVisible(true);
+//    }
+
+//    public void vmDelete_click(MouseEvent actionEvent){
+//        _os.compute().servers().delete("serverId");
+//       image_pane.setVisible(false);
+//        topology_pane.setVisible(false);
+//        network_pane.setVisible(false);
+//        router_pane.setVisible(false);
+//        instance_pane.setVisible(false);
+//        flavor_pane.setVisible(false);
+    //      vm_pane.setVisible(true);
+   // }
+
     public void instance_click(MouseEvent actionEvent) {
 
 //        ObservableListWrapper<AvailabilityZone.NovaService> obsNetwork = new ObservableListWrapper<>(networks.stream()
@@ -179,7 +264,7 @@ public class Controller {
 //                .collect(Collectors.toList()));
 //
 //        Image img = _os.compute().images().get("imageId");
-        
+
         image_pane.setVisible(false);
         topology_pane.setVisible(false);
         network_pane.setVisible(false);
@@ -189,10 +274,10 @@ public class Controller {
 
     public void image_click(MouseEvent actionEvent) {
 //        // List all Images (detailed @see #list(boolean detailed) for brief)
-//        List<? extends Image> images = _os.compute().images().list();
+        List<? extends Image> images = _os.compute().images().list();
 //
 //        // Get an Image by ID
-//        Image img = _os.compute().images().get("imageId");
+        Image img = _os.compute().images().get("imageId");
 
         instance_pane.setVisible(false);
         topology_pane.setVisible(false);
