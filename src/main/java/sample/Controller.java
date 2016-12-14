@@ -3,7 +3,9 @@ package sample;
 import com.google.common.collect.Table;
 
 import java.awt.*;
+
 import javafx.scene.control.TextArea;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import javax.accessibility.AccessibleComponent;
+
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.api.exceptions.AuthenticationException;
@@ -42,44 +45,59 @@ import org.openstack4j.openstack.networking.domain.NeutronSubnet;
 
 public class Controller {
 
-    @FXML TextField username_text;
-    @FXML TextField password_box;
-    @FXML Label failed_login;
-    @FXML TextField company_text;
-    @FXML TextField desc_text;
-    @FXML TableView network_table;
-    @FXML TableView subnet_table;
-    @FXML TableView port_table;
-    @FXML Pane login_pane;
-    @FXML Pane main_pane;
-    @FXML Pane instance_pane;
-    @FXML Pane image_pane;
-    @FXML Pane topology_pane;
-    @FXML Pane network_pane;
-    @FXML Pane router_pane;
+    @FXML
+    TextField username_text;
+    @FXML
+    TextField password_box;
+    @FXML
+    Label failed_login;
+    @FXML
+    TextField company_text;
+    @FXML
+    TextField desc_text;
+    @FXML
+    TableView network_table;
+    @FXML
+    TableView subnet_table;
+    @FXML
+    TableView port_table;
+    @FXML
+    Pane login_pane;
+    @FXML
+    Accordion admin_control;
+    @FXML
+    Pane main_pane;
+    @FXML
+    Pane instance_pane;
+    @FXML
+    Pane image_pane;
+    @FXML
+    Pane topology_pane;
+    @FXML
+    Pane network_pane;
+    @FXML
+    Pane router_pane;
     private OSClient.OSClientV2 _os;
 
     private Random random = new Random();
 
-    public Controller()
-    {
+    public Controller() {
 
     }
 
     // initialize happens after the constructor of Controller and after all JavaFX controls are instantiated.
     // JavaFX scans the Controller class and automatically finds this at **runtime**.
-    public void initialize()
-    {
+    public void initialize() {
         // This sets up the event handler for the network_table's currently selected row being changed.
         network_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 subnet_table.getSelectionModel().clearSelection();
 
                 // Set subnet_table's items to be the subnets of the newly selected NeutronNetwork.
-                subnet_table.itemsProperty().setValue(new ObservableListWrapper<>(((NeutronNetwork)newSelection).getSubnets()));
+                subnet_table.itemsProperty().setValue(new ObservableListWrapper<>(((NeutronNetwork) newSelection).getSubnets()));
 
                 // Set port_table's items to ports assigned to the network by the network ID.
-                port_table.itemsProperty().setValue(new ObservableListWrapper<>(_os.networking().port().list(PortListOptions.create().networkId(((NeutronNetwork)newSelection).getId()))));
+                port_table.itemsProperty().setValue(new ObservableListWrapper<>(_os.networking().port().list(PortListOptions.create().networkId(((NeutronNetwork) newSelection).getId()))));
             }
         });
     }
@@ -103,10 +121,10 @@ public class Controller {
         if (!id.equals("") && !pwd.equals("")) {
             try {
                 _os = OSFactory.builderV2()
-                    .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
-                    .credentials(id, pwd)
-                    .tenantName(id)
-                    .authenticate();
+                        .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
+                        .credentials(id, pwd)
+                        .tenantName(id)
+                        .authenticate();
 
 //                _os = OSFactory.builderV2()
 //                        .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
@@ -119,14 +137,14 @@ public class Controller {
 
             }
 
-        }
-        else {
+        } else {
             failed_login.setText("*Username and password required*");
             return;
         }
 
         login_pane.setVisible(false);
         main_pane.setVisible(true);
+        admin_control.setVisible(true);
         username_text.clear();
         password_box.clear();
 
@@ -148,9 +166,9 @@ public class Controller {
 
         Tenant tenant = _os.identity().tenants()
                 .create(Builders.identityV2().tenant()
-                        .name(company)
-                        .description(description)
-                        .build());
+                .name(company)
+                .description(description)
+                .build());
     }
 
     public void logout_click(MouseEvent actionEvent) {
@@ -243,7 +261,7 @@ public class Controller {
 //        router_pane.setVisible(false);
 //        instance_pane.setVisible(false);
 //        flavor_pane.setVisible(false);
-        //      vm_pane.setVisible(true);
+    //      vm_pane.setVisible(true);
 //    }
 
 //    public void vmDelete_click(MouseEvent actionEvent){
@@ -255,7 +273,7 @@ public class Controller {
 //        instance_pane.setVisible(false);
 //        flavor_pane.setVisible(false);
     //      vm_pane.setVisible(true);
-   // }
+    // }
 
     public void instance_click(MouseEvent actionEvent) {
 
@@ -286,15 +304,6 @@ public class Controller {
         image_pane.setVisible(true);
     }
 
-    public void topology_click(MouseEvent actionEvent) {
-
-        instance_pane.setVisible(false);
-        image_pane.setVisible(false);
-        network_pane.setVisible(false);
-        router_pane.setVisible(false);
-        topology_pane.setVisible(true);
-    }
-
     public void network_click(MouseEvent actionEvent) {
 
 //        // List the networks which the current tenant has access to
@@ -305,13 +314,24 @@ public class Controller {
         List<? extends Subnet> subnets = _os.networking().subnet().list();
 
 //        // List all Ports which the current authorized tenant has access to
-        List<? extends Port> ports =_os.networking().port().list();
+        List<? extends Port> ports = _os.networking().port().list();
 
+//        Network  network1 = networks.get(0);
+//        System.out.println(network1.getName());
+//        Network network2 = networks.get(1);
+//        System.out.println(network2.getName());
+//        Network network3 = networks.get(2);
+//        System.out.println(network3.getName());
+
+        //Network obs1Network = _os.networking().network().get("749213b3-1b73-4ec2-90c9-2f6da3a06843");
         ObservableListWrapper<Network> obsNetwork = new ObservableListWrapper<>(networks.stream()
                 .filter(network -> network.getClass().isAssignableFrom(NeutronNetwork.class))
+                //.filter(network -> network.getClass().isAssignableFrom(NeutronNetwork.class))
+                //.filter(network -> network.equals(network1))
                 .collect(Collectors.toList()));
 
         network_table.itemsProperty().setValue(obsNetwork);
+        //network_table.itemsProperty().setValue(obs1Network);
 
         ObservableListWrapper<Subnet> obsSubnet = new ObservableListWrapper<>(subnets.stream()
                 .filter(subnet -> subnet.getClass().isAssignableFrom(NeutronSubnet.class))
@@ -345,8 +365,7 @@ public class Controller {
     }
 
 
-    public void router_click(MouseEvent actionEvent)
-    {
+    public void router_click(MouseEvent actionEvent) {
         instance_pane.setVisible(false);
         image_pane.setVisible(false);
         topology_pane.setVisible(false);
@@ -354,13 +373,12 @@ public class Controller {
         router_pane.setVisible(true);
     }
 
-    public List<Network> mockNetworks()
-    {
+    public List<Network> mockNetworks() {
         List<Network> networks = new ArrayList<>();
         Network network = new NeutronNetwork();
         network.setId("asd2131");
         network.setName("network" + random.nextInt());
-     //   subnet.setCidr("");
+        //   subnet.setCidr("");
         networks.add(network);
 
         return networks;
