@@ -36,7 +36,7 @@
         <RowConstraints />
     </rowConstraints>
     <children>
-        <Pane id="login_form" fx:id="login_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: FDFAF2;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Pane id="login_form" fx:id="login_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="400.0" style="-fx-background-color: FDFAF2;" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <children>
                 <ImageView fitHeight="129.0" fitWidth="262.0" layoutX="90.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -82,7 +82,7 @@
                 <Insets bottom="159.0" left="440.0" right="440.0" top="159.0" />
             </padding>
         </Pane>
-        <Pane fx:id="main_pane" prefHeight="768.0" prefWidth="1280.0" visible="false">
+        <Pane fx:id="main_pane" prefHeight="768.0" prefWidth="1280.0">
             <children>
                 <Button fx:id="logout" layoutX="1116.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout_click" prefHeight="50.0" prefWidth="150.0" text="LOGOUT">
                     <font>
@@ -281,7 +281,7 @@
                                 </TableView>
                             </children>
                         </Pane>
-                        <Pane fx:id="network_pane" layoutX="7.0" layoutY="-68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="1017.0" visible="false">
+                        <Pane fx:id="network_pane" layoutX="7.0" layoutY="-68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="1017.0">
                             <children>
                                 <Button fx:id="create_network" layoutX="710.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#create_net" prefHeight="35.0" prefWidth="140.0" text="CREATE">
                                     <font>
@@ -293,7 +293,7 @@
                                         <Font name="TrajanPro-Bold" size="16.0" />
                                     </font>
                                 </Button>
-                                <TableView fx:id="network_table" layoutX="15.0" layoutY="80.0" maxWidth="980.0" minWidth="980.0" prefWidth="980.0">
+                                <TableView fx:id="network_table" layoutX="15.0" layoutY="80.0" maxWidth="980.0" minWidth="980.0" prefWidth="980.0" visible="false">
                                     <columns>
                                         <TableColumn id="checkbox" fx:id="selection_box" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false">
                                             <cellValueFactory>
@@ -405,6 +405,43 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
+                        <Pane fx:id="create_network" layoutX="182.0" layoutY="45.0" maxHeight="600.0" maxWidth="500.0" minHeight="600.0" minWidth="500.0" prefHeight="600.0" prefWidth="500.0">
+                           <children>
+                              <Label layoutX="15.0" text="Create Network" textFill="#0a0a0a">
+                                 <font>
+                                    <Font name="TrajanPro-Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="39.0" prefHeight="25.0" prefWidth="466.0" text="Network Name">
+                                 <font>
+                                    <Font name="Questa-Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="172.0" prefHeight="21.0" prefWidth="466.0" text="Label">
+                                 <font>
+                                    <Font name="Questa-Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="190.0" layoutY="560.0" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Submit" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="TrajanPro-Bold" size="20.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="350.0" layoutY="560.0" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Cancel" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="TrajanPro-Bold" size="20.0" />
+                                 </font>
+                              </Button>
+                              <TextField layoutX="14.0" layoutY="60.0" prefHeight="40.0" prefWidth="466.0" />
+                              <TextField layoutX="14.0" layoutY="126.0" prefHeight="40.0" prefWidth="466.0" />
+                              <TextField layoutX="14.0" layoutY="192.0" prefHeight="40.0" prefWidth="466.0" />
+                              <Label layoutX="14.0" layoutY="106.0" prefHeight="21.0" prefWidth="466.0" text="Label">
+                                 <font>
+                                    <Font name="Questa-Regular" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                             </children>
                         </Pane>
                         <Pane fx:id="router_pane" layoutX="7.0" layoutY="-66.0" prefHeight="692.0" prefWidth="1017.0" visible="false">
@@ -420,7 +457,6 @@
                                 </TableView>
                             </children>
                         </Pane>
-                        <Pane layoutX="10.0" layoutY="-66.0" prefHeight="692.0" prefWidth="1017.0" />
                     </children>
                 </Pane>
             <Accordion fx:id="user_control" layoutY="80.0" maxWidth="260.0" minWidth="260.0" prefWidth="260.0" visible="false">
