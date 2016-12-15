@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.sun.javafx.collections.ObservableListWrapper;
@@ -30,6 +31,7 @@ import org.openstack4j.model.compute.Image;
 import org.openstack4j.model.compute.Server;
 import org.openstack4j.model.compute.ServerCreate;
 import org.openstack4j.model.compute.ext.AvailabilityZone;
+import org.openstack4j.model.identity.v2.Role;
 import org.openstack4j.model.identity.v2.Tenant;
 import org.openstack4j.model.network.Network;
 import org.openstack4j.model.network.Port;
@@ -65,6 +67,8 @@ public class Controller {
     Pane login_pane;
     @FXML
     Accordion admin_control;
+    @FXML
+    Accordion user_control;
     @FXML
     Pane main_pane;
     @FXML
@@ -131,10 +135,10 @@ public class Controller {
 //                        .credentials("admin", "cis347")
 //                        .tenantName("admin")
 //                        .authenticate();
-            } catch (AuthenticationException ex) {
+            }
+            catch (AuthenticationException ex) {
                 failed_login.setText("*Invalid username or password*");
                 return;
-
             }
 
         } else {
@@ -142,11 +146,30 @@ public class Controller {
             return;
         }
 
+        //System.out.println(_os.getAccess().getUser().getRoles().stream().map(role -> role.getName()).reduce((r1, r2) -> r1 + "\r\n" + r2).toString());
+
+        boolean isAdmin = false;
+        for (Role role:
+                _os.getAccess().getUser().getRoles()) {
+
+            isAdmin |= role.getName().equals("admin");
+        }
+
+//        boolean isDemo = false;
+//        for (Role role:
+//                _os.getAccess().getUser().getRoles()) {
+//
+//            isDemo |= role.getName().equals("demo");
+//        }
+
         login_pane.setVisible(false);
         main_pane.setVisible(true);
-        admin_control.setVisible(true);
+        admin_control.setVisible(isAdmin);
+        user_control.setVisible(true);
         username_text.clear();
         password_box.clear();
+
+
 
 
 //        String flavors = _os.compute().flavors().list().stream().map(flavor -> flavor.getName()).reduce((f1, f2) -> f1 + "\r\n" + f2).get();
@@ -163,12 +186,7 @@ public class Controller {
 
         //Create a new user with hard-coded tenantId, name, pw, email, and boolean value for enabled/disabled
         _os.identity().users().create("admin", "user1", "user1password", "user1@email.com", true);
-
-        Tenant tenant = _os.identity().tenants()
-                .create(Builders.identityV2().tenant()
-                .name(company)
-                .description(description)
-                .build());
+        
     }
 
     public void logout_click(MouseEvent actionEvent) {
@@ -399,6 +417,8 @@ public class Controller {
 //        instance_pane.setVisible(false);
 //        flavor_pane.setVisible(false);
 //              vm_pane.setVisible(true);
+
+
     }
 
     public void delete_vm(ActionEvent actionEvent) {
