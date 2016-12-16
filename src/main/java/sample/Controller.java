@@ -104,6 +104,18 @@ public class Controller {
                 port_table.itemsProperty().setValue(new ObservableListWrapper<>(_os.networking().port().list(PortListOptions.create().networkId(((NeutronNetwork) newSelection).getId()))));
             }
         });
+
+//        vminfo_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+//            if (newSelection != null) {
+//                vmspecs_table.getSelectionModel().clearSelection();
+//
+//                // Set subnet_table's items to be the subnets of the newly selected NeutronNetwork.
+//                vmspecs_table.itemsProperty().setValue(new ObservableListWrapper<>(((NeutronNetwork) newSelection).getSubnets()));
+//
+//                // Set port_table's items to ports assigned to the network by the network ID.
+//                vmipmeta_table.itemsProperty().setValue(new ObservableListWrapper<>(_os.networking().port().list(PortListOptions.create().networkId(((NeutronNetwork) newSelection).getId()))));
+//            }
+//        });
     }
 
 
@@ -431,5 +443,14 @@ public class Controller {
 //        instance_pane.setVisible(false);
 //        flavor_pane.setVisible(false);
 //        vm_pane.setVisible(true);
+    }
+
+    public void show_images(ActionEvent actionEvent) {
+    }
+
+    public void show_vms(ActionEvent actionEvent) {
+    }
+
+    public void show_flavors(ActionEvent actionEvent) {
     }
 }
