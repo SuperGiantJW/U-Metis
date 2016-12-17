@@ -25,7 +25,7 @@ public class Main extends Application {
 //        Parent root = FXMLLoader.load(getClass().getResource("UMetis.fxml"));
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("UMetis.fxml"));
         primaryStage.setTitle("U-Metis");
-        primaryStage.setScene(new Scene(root, 1286, 775));
+        primaryStage.setScene(new Scene(root, 1280, 768));
         primaryStage.show();
     }
 

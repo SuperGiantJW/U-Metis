@@ -4,6 +4,10 @@ import com.google.common.collect.Table;
 
 import java.awt.*;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 import java.util.ArrayList;
@@ -26,10 +30,8 @@ import javax.accessibility.AccessibleComponent;
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.api.exceptions.AuthenticationException;
-import org.openstack4j.model.compute.Flavor;
+import org.openstack4j.model.compute.*;
 import org.openstack4j.model.compute.Image;
-import org.openstack4j.model.compute.Server;
-import org.openstack4j.model.compute.ServerCreate;
 import org.openstack4j.model.compute.ext.AvailabilityZone;
 import org.openstack4j.model.identity.v2.Role;
 import org.openstack4j.model.identity.v2.Tenant;
@@ -47,6 +49,12 @@ import org.openstack4j.openstack.networking.domain.NeutronSubnet;
 
 public class Controller {
 
+    @FXML
+    ChoiceBox network_state;
+    @FXML
+    ComboBox project_selection;
+    @FXML
+    ChoiceBox net_type_selection;
     @FXML
     TextField username_text;
     @FXML
@@ -392,9 +400,31 @@ public class Controller {
 
     public void create_net(MouseEvent actionEvent) {
         String network_name = new_network.getText();
+        final Button create_net_submit = new Button ("Create Network");
+        final Label notification = new Label ();
+        final TextField network_name = new TextField("");
+        final TextArea text = new TextArea ("");
 
-        Network network =_os.networking().network()
-                .create(Builders.network().name("network_name").tenantId(tenant.getId()).build());
+        String address = " ";
+
+        @Override public void start(Stage stage) {
+            stage.setTitle("ComboBoxSample");
+            Scene scene = new Scene(new SecGroupExtension.Rule.Group(), 450, 250);
+
+            final ComboBox typeComboBox = new ComboBox();
+            typeComboBox.getItems().addAll(
+                    "Local",
+                    "VLAN",
+                    "ethan.williams@example.com"
+            );
+            typeComboBox.setEditable(true);
+            typeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+                @Override public void changed(ObservableValue ov, String t, String t1) {
+                    address = t1;
+                }
+            });
+//        Network network =_os.networking().network()
+//                .create(Builders.network().name("network").tenantId(tenant.getId()).build());
     }
 
     public void delete_net(MouseEvent actionEvent) {

@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="UMetis" alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: FDFAF2;" vgap="10" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane fx:id="UMetis" alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" style="-fx-background-color: FDFAF2;" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints />
         <ColumnConstraints />
@@ -476,7 +476,7 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
-                        <Pane fx:id="create_network" layoutX="182.0" layoutY="58.0" maxHeight="600.0" maxWidth="500.0" minHeight="587.0" minWidth="500.0" prefHeight="587.0" prefWidth="500.0" style="-fx-background-color: FDFABB;">
+                        <Pane fx:id="create_network" layoutX="182.0" layoutY="36.0" maxHeight="609.0" maxWidth="500.0" minHeight="587.0" minWidth="500.0" prefHeight="609.0" prefWidth="500.0" style="-fx-background-color: FDFABB;">
                            <children>
                               <Label layoutX="15.0" layoutY="28.0" text="Create Network" textFill="#0a0a0a">
                                  <font>
@@ -508,22 +508,22 @@
                                  </font>
                               </Label>
                               <ChoiceBox fx:id="network_state" layoutX="14.0" layoutY="382.0" prefHeight="40.0" prefWidth="466.0" />
-                              <CheckBox layoutX="15.0" layoutY="439.0" mnemonicParsing="false" text="Shared">
+                              <CheckBox fx:id="shared_checkbox" layoutX="15.0" layoutY="439.0" mnemonicParsing="false" text="Shared">
                                  <font>
                                     <Font name="Questa-Regular" size="16.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox layoutX="15.0" layoutY="476.0" mnemonicParsing="false" text="External Network">
+                              <CheckBox fx:id="extNet_checkbox" layoutX="15.0" layoutY="476.0" mnemonicParsing="false" text="External Network">
                                  <font>
                                     <Font name="Questa-Regular" size="16.0" />
                                  </font>
                               </CheckBox>
-                              <Button layoutX="307.0" layoutY="534.0" maxHeight="40.0" maxWidth="173.0" minHeight="40.0" minWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="173.0" text="Create Network" textAlignment="CENTER">
+                              <Button fx:id="create_net_submit" layoutX="307.0" layoutY="534.0" maxHeight="40.0" maxWidth="173.0" minHeight="40.0" minWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="173.0" text="Create Network" textAlignment="CENTER">
                                  <font>
                                     <Font name="TrajanPro-Bold" size="15.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="185.0" layoutY="534.0" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="114.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="114.0" text="Cancel" textAlignment="CENTER">
+                              <Button fx:id="cancel_select" layoutX="185.0" layoutY="534.0" maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="114.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="114.0" text="Cancel" textAlignment="CENTER">
                                  <font>
                                     <Font name="TrajanPro-Bold" size="15.0" />
                                  </font>
@@ -553,7 +553,7 @@
                                 </TableView>
                             </children>
                         </Pane>
-                  <Pane fx:id="vm_pane" layoutY="-66.0" prefHeight="668.0" prefWidth="1017.0">
+                  <Pane fx:id="vm_pane" layoutY="-66.0" prefHeight="668.0" prefWidth="1017.0" visible="false">
                      <children>
                         <TableView fx:id="vmipmeta_table" layoutY="476.0" prefHeight="192.0" prefWidth="1002.0">
                           <columns>
