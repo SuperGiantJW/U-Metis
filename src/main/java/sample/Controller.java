@@ -58,6 +58,8 @@ public class Controller {
     @FXML
     TextField desc_text;
     @FXML
+    TextField new_network;
+    @FXML
     TableView network_table;
     @FXML
     TableView subnet_table;
@@ -136,10 +138,15 @@ public class Controller {
         // Test data
         if (!id.equals("") && !pwd.equals("")) {
             try {
+                String t_tenant = id;
+                if (id.equals("eric")) {
+                    t_tenant = "CreateProject";
+                }
+
                 _os = OSFactory.builderV2()
                         .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
                         .credentials(id, pwd)
-                        .tenantName(id)
+                        .tenantName(t_tenant)
                         .authenticate();
 
 //                _os = OSFactory.builderV2()
@@ -198,7 +205,7 @@ public class Controller {
 
         //Create a new user with hard-coded tenantId, name, pw, email, and boolean value for enabled/disabled
         _os.identity().users().create("admin", "user1", "user1password", "user1@email.com", true);
-        
+
     }
 
     public void logout_click(MouseEvent actionEvent) {
@@ -384,9 +391,10 @@ public class Controller {
     }
 
     public void create_net(MouseEvent actionEvent) {
+        String network_name = new_network.getText();
 
-//        Network network =_os.networking().network()
-//                .create(Builders.network().name("ext_network").tenantId(tenant.getId()).build());
+        Network network =_os.networking().network()
+                .create(Builders.network().name("network_name").tenantId(tenant.getId()).build());
     }
 
     public void delete_net(MouseEvent actionEvent) {
