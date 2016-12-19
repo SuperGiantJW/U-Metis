@@ -8,6 +8,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextArea;
 
 import java.util.ArrayList;
@@ -82,7 +84,21 @@ public class Controller {
     @FXML
     Pane main_pane;
     @FXML
+    Pane vm_pane;
+    @FXML
+    TableView vminfo_table;
+    @FXML
+    TableView vmspecs_table;
+    @FXML
+    TableView vmipmeta_table;
+    @FXML
     Pane instance_pane;
+    @FXML
+    ListView instanceinfo_list;
+    @FXML
+    ListView instancespecs_list;
+    @FXML
+    ListView instanceipmeta_list;
     @FXML
     Pane image_pane;
     @FXML
@@ -91,6 +107,13 @@ public class Controller {
     Pane network_pane;
     @FXML
     Pane router_pane;
+    @FXML
+    Pane create_network;
+    @FXML
+    Pane working_pane;
+//    @FXML
+//    Table instance_table;
+
     private OSClient.OSClientV2 _os;
 
     private Random random = new Random();
@@ -126,6 +149,10 @@ public class Controller {
 //                vmipmeta_table.itemsProperty().setValue(new ObservableListWrapper<>(_os.networking().port().list(PortListOptions.create().networkId(((NeutronNetwork) newSelection).getId()))));
 //            }
 //        });
+        login_pane.setVisible(true);
+        main_pane.setVisible(false);
+        working_pane.setVisible(false);
+        create_network.setVisible(false);
     }
 
 
@@ -133,16 +160,17 @@ public class Controller {
         String id = username_text.getText();
         String pwd = password_box.getText();
         //
-//        if (_os != null /*and equal to existing user*/) {
-//            _os = OSFactory.builderV2()
-//                    .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
-//                    .credentials(id, pwd)
-//                    .tenantName(id)
-//                    .authenticate();
-//
-//            login_pane.setVisible(false);
-//            main_pane.setVisible(true);
-//        }
+        if (_os != null /*and equal to existing user*/) {
+            _os = OSFactory.builderV2()
+                    .endpoint("http://controller:5000/v2.0")    //port might be "35357" instead for admin, since 5000 was typically for the demo user
+                    .credentials(id, pwd)
+                    .tenantName(id)
+                    .authenticate();
+
+            login_pane.setVisible(false);
+            main_pane.setVisible(true);
+            working_pane.setVisible(true);
+        }
         // Test data
         if (!id.equals("") && !pwd.equals("")) {
             try {
@@ -162,6 +190,10 @@ public class Controller {
 //                        .credentials("admin", "cis347")
 //                        .tenantName("admin")
 //                        .authenticate();
+
+                login_pane.setVisible(false);
+                main_pane.setVisible(true);
+                working_pane.setVisible(true);
             }
             catch (AuthenticationException ex) {
                 failed_login.setText("*Invalid username or password*");
@@ -328,11 +360,47 @@ public class Controller {
 //
 //        Image img = _os.compute().images().get("imageId");
 
+        // Find all running Servers
+//        List<? extends Server> serverList = _os.compute().servers().list();
+//        ObservableList<Server> servers = (ObservableList<Server>) serverList;
+//        TableView<Server> tableView = new TableView<Server>(servers);
+//        instance_table.setItems(tableView);
+
+//        instanceinfo_list = (ListView) _os.compute().servers().list();
+
+//        ObservableList<String> itemsInstanceInfo = FXCollections.observableArrayList (
+//                "VM Name", "VM ID", "Status", "Zone", "Created On", "Time Since Created");
+//        instanceinfo_list.setItems(itemsInstanceInfo);
+
+        List<? extends Server> itemsInstanceInfo = _os.compute().servers().list();
+        instanceinfo_list.setItems((ObservableList) itemsInstanceInfo);
+//        vminfo_table.setItems((ObservableList) itemsInstanceInfo);
+//        servers.setItems(itemsInstanceInfo);
+
+        // Find all Compute Flavors
+        List<? extends Flavor> flavors = _os.compute().flavors().list();
+        instancespecs_list.setItems((ObservableList) flavors);
+
+//        ObservableList<String> itemsInstanceSpecs = FXCollections.observableArrayList (
+//                "Flavor Name", "Flavor ID", "RAM", "VCPUs", "Disk");
+//        instancespecs_list.setItems(itemsInstanceSpecs);
+
+//        List<? extends Flavor> itemsInstanceSpecs = _os.compute().flavors().list();
+//        instancespecs_list.setItems((ObservableList) itemsInstanceSpecs);
+//        vmspecs_table.setItems((ObservableList) itemsInstanceSpecs);
+
+        create_network.setVisible(false);
         image_pane.setVisible(false);
         topology_pane.setVisible(false);
         network_pane.setVisible(false);
-        router_pane.setVisible(false);//
+        router_pane.setVisible(false);
+        vm_pane.setVisible(false);
+        vminfo_table.setVisible(false);
+        vmspecs_table.setVisible(false);
+        vmipmeta_table.setVisible(false);
         instance_pane.setVisible(true);
+        instanceinfo_list.setVisible(true);
+        instancespecs_list.setVisible(true);
     }
 
     public void image_click(MouseEvent actionEvent) {
@@ -342,7 +410,11 @@ public class Controller {
 //        // Get an Image by ID
         Image img = _os.compute().images().get("imageId");
 
+        create_network.setVisible(false);
+        vm_pane.setVisible(false);
         instance_pane.setVisible(false);
+        instanceinfo_list.setVisible(false);
+        instancespecs_list.setVisible(false);
         topology_pane.setVisible(false);
         network_pane.setVisible(false);
         router_pane.setVisible(false);
@@ -390,6 +462,7 @@ public class Controller {
 
         port_table.itemsProperty().setValue(obsPort);
 
+        vm_pane.setVisible(false);
         instance_pane.setVisible(false);
         image_pane.setVisible(false);
         router_pane.setVisible(false);
@@ -399,32 +472,34 @@ public class Controller {
     }
 
     public void create_net(MouseEvent actionEvent) {
+        create_network.setVisible(true);
+
         String network_name = new_network.getText();
         final Button create_net_submit = new Button ("Create Network");
         final Label notification = new Label ();
-        final TextField network_name = new TextField("");
+//        final TextField network_name = new TextField("");
         final TextArea text = new TextArea ("");
 
         String address = " ";
 
-        @Override public void start(Stage stage) {
-            stage.setTitle("ComboBoxSample");
-            Scene scene = new Scene(new SecGroupExtension.Rule.Group(), 450, 250);
-
-            final ComboBox typeComboBox = new ComboBox();
-            typeComboBox.getItems().addAll(
-                    "Local",
-                    "VLAN",
-                    "ethan.williams@example.com"
-            );
-            typeComboBox.setEditable(true);
-            typeComboBox.valueProperty().addListener(new ChangeListener<String>() {
-                @Override public void changed(ObservableValue ov, String t, String t1) {
-                    address = t1;
-                }
-            });
-//        Network network =_os.networking().network()
-//                .create(Builders.network().name("network").tenantId(tenant.getId()).build());
+//        @Override public void start(Stage stage) {
+//            stage.setTitle("ComboBoxSample");
+//            Scene scene = new Scene(new SecGroupExtension.Rule.Group(), 450, 250);
+//
+//            final ComboBox typeComboBox = new ComboBox();
+//            typeComboBox.getItems().addAll(
+//                    "Local",
+//                    "VLAN",
+//                    "ethan.williams@example.com"
+//            );
+//            typeComboBox.setEditable(true);
+//            typeComboBox.valueProperty().addListener(new ChangeListener<String>() {
+//                @Override public void changed(ObservableValue ov, String t, String t1) {
+//                    address = t1;
+//                }
+//            });
+////        Network network =_os.networking().network()
+////                .create(Builders.network().name("network").tenantId(tenant.getId()).build());
     }
 
     public void delete_net(MouseEvent actionEvent) {
@@ -434,7 +509,10 @@ public class Controller {
 
 
     public void router_click(MouseEvent actionEvent) {
+        vm_pane.setVisible(false);
         instance_pane.setVisible(false);
+        instanceinfo_list.setVisible(false);
+        instancespecs_list.setVisible(false);
         image_pane.setVisible(false);
         topology_pane.setVisible(false);
         network_pane.setVisible(false);

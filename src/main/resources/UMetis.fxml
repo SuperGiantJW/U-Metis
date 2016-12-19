@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -188,7 +189,7 @@
                                     <children>
                                         <Accordion maxWidth="260.0" minWidth="260.0" prefWidth="260.0">
                                             <panes>
-                                                <TitledPane animated="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Compute">
+                                                <TitledPane fx:id="computeVM" animated="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Compute">
                                                     <content>
                                                         <AnchorPane maxHeight="80.0" maxWidth="250.0" minHeight="80.0" minWidth="250.0" prefHeight="80.0" prefWidth="250.0">
                                                             <opaqueInsets>
@@ -324,7 +325,7 @@
                     <children>
                         <Pane fx:id="instance_pane" layoutX="7.0" layoutY="-65.0" prefHeight="692.0" prefWidth="1017.0" visible="false">
                             <children>
-                                <TableView fx:id="instance_table" focusTraversable="false" layoutX="52.0" layoutY="38.0" prefWidth="920.0">
+                                <TableView fx:id="" focusTraversable="false" layoutX="52.0" layoutY="38.0" prefWidth="920.0">
                                     <columns>
                                         <TableColumn prefWidth="179.0" text="Instance Name" />
                                         <TableColumn minWidth="9.0" prefWidth="171.0" text="IP Address" />
@@ -335,6 +336,9 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
+                        <ListView fx:id="instanceinfo_list" layoutX="13.0" layoutY="115.0" prefHeight="129.0" prefWidth="980.0" />
+                        <ListView fx:id="instancespecs_list" layoutX="18.0" layoutY="266.0" prefHeight="165.0" prefWidth="980.0" />
+                        <ListView fx:id="instanceipmeta_list" layoutX="16.0" layoutY="438.0" prefHeight="147.0" prefWidth="980.0" />
                             </children>
                         </Pane>
                         <Pane fx:id="image_pane" layoutX="7.0" layoutY="-66.0" prefHeight="668.0" prefWidth="1017.0" visible="false">
@@ -354,12 +358,12 @@
                         </Pane>
                         <Pane fx:id="network_pane" layoutX="7.0" layoutY="-68.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="692.0" prefWidth="1017.0">
                             <children>
-                                <Button fx:id="create_network" layoutX="710.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#create_net" prefHeight="35.0" prefWidth="140.0" text="CREATE">
+                                <Button fx:id="btncreate_network" layoutX="710.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#create_net" prefHeight="35.0" prefWidth="140.0" text="CREATE">
                                     <font>
                                         <Font name="TrajanPro-Bold" size="16.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="delete_network" layoutX="855.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete_net" prefHeight="35.0" prefWidth="140.0" text="DELETE">
+                                <Button fx:id="btndelete_network" layoutX="855.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete_net" prefHeight="35.0" prefWidth="140.0" text="DELETE">
                                     <font>
                                         <Font name="TrajanPro-Bold" size="16.0" />
                                     </font>
